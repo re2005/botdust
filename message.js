@@ -8,15 +8,15 @@ websocket.onopen = () => console.log('OPEN');
 websocket.onclose = () => console.log('CLOSED');
 websocket.onerror = (e) => console.log('ERROR', e);
 
-const config =  ['mober@peer2peer.ai'];
+const config = ['mober@peer2peer.ai'];
 let userId;
 
 exec('bitdust id', function (error, response) {
     if (error !== null) {
         console.log('exec error: ' + error);
     }
-    userId = response;
-    console.log('Bot is set for user:' + userId);
+    userId = response.trim();
+    console.log('Bot is set for user: ' + userId);
     websocket.onmessage = (m) => onMessage(m);
 });
 
