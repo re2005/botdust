@@ -8,14 +8,13 @@ websocket.onopen = () => console.log('OPEN');
 websocket.onclose = () => console.log('CLOSED');
 websocket.onerror = (e) => console.log('ERROR', e);
 
-const config = ['mober@peer2peer.ai'];
 let userId;
 
-exec('bitdust id', function (error, response) {
+exec('curl host.docker.internal:8180/identity/get/v1', function (error, response) {
     if (error !== null) {
         console.log('exec error: ' + error);
     }
-    userId = response.trim();
+    userId = JSON.parse(response).result.global_id;
     console.log('Bot is set for user: ' + userId);
     websocket.onmessage = (m) => onMessage(m);
 });
